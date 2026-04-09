@@ -1,0 +1,373 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* --- Global Styles --- */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #000000;
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+    display: flex; 
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- Fixed Sidebar --- */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    position: fixed; 
+    left: 0;
+    top: 0;
+    padding: 60px 45px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #f0f0f0;
+    background: #fff;
+    z-index: 100;
+}
+
+.brand .name {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.brand .title {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+/* --- Navigation & Filters --- */
+.nav-links {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Restoring your original font style and color */
+.nav-links a, 
+.filters a {
+    text-decoration: none;
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
+}
+
+/* Hover & Active States */
+.nav-links a:hover, 
+.nav-links a.active, 
+.filters a:hover, 
+.filters a.active {
+    color: #000;
+    padding-left: 8px;
+}
+
+/* --- The Hover Reveal Logic --- */
+
+.nav-group {
+    position: relative;
+    padding-bottom: 5px; /* Creates a small bridge so the menu doesn't close while moving mouse */
+}
+
+.filters {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 0;
+    padding-left: 10px; /* Indent sub-categories */
+    transition: max-height 0.5s ease, opacity 0.3s ease, margin-top 0.4s ease;
+    pointer-events: none; /* Prevents clicking filters while hidden */
+}
+
+/* Reveal when hovering over the group */
+.nav-group:hover .filters {
+    max-height: 300px; /* Large enough to fit all links */
+    opacity: 1;
+    margin-top: 15px;
+    pointer-events: auto; /* Re-enable clicking */
+    transition-delay: 0s;
+}
+
+
+
+/* --- Gallery Area --- */
+.main-content {
+    margin-left: 280px; 
+    width: calc(100% - 280px);
+    display: flex;
+    flex-direction: column; 
+    height: 100vh;      /* Force the container to match screen height */
+    overflow-y: auto;   /* Make THIS the element that scrolls */
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); 
+    padding: 150px 60px;
+    row-gap: 100px;
+    align-items: start;
+}
+
+.project-item {
+    width: 100%;
+    position: relative;
+    display: block; /* Default state */
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.project-item.hide {
+    display: none; 
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Desktop 6n Logic */
+@media (min-width: 1025px) {
+    .project-item:nth-of-type(6n+1) { grid-column: 1 / 8; margin-top: 0; }
+    .project-item:nth-of-type(6n+2) { grid-column: 9 / 13; margin-top: 180px; }
+    .project-item:nth-of-type(6n+3) { grid-column: 1 / 5; margin-top: -60px; }
+    .project-item:nth-of-type(6n+4) { grid-column: 7 / 13; margin-top: 120px; }
+    .project-item:nth-of-type(6n+5) { grid-column: 1 / 7; margin-top: 40px; }
+    .project-item:nth-of-type(6n+6) { grid-column: 8 / 13; margin-top: 250px; }
+}
+
+/* Image Handling */
+.image-box {
+    overflow: hidden;
+    background-color: #fcfcfc;
+}
+
+.image-box img,
+.image-box video {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    object-fit: contain;
+    /* FIX 1: Matches the page background so gaps aren't black */
+    background-color: #ffffff; 
+
+}
+
+.project-item:hover img,
+.project-item:hover video {
+    transform: scale(1.03);
+}
+
+/* --- Project Meta (Hover Reveal) --- */
+.project-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0; 
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.project-item:hover .project-meta {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-title {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    text-transform: none;
+    color: #3e3e3e;
+}
+
+.project-year {
+    font-size: 11px;
+    color: #bbb;
+    letter-spacing: 1px;
+}
+
+/* --- About Section Styling --- */
+.about-section {
+    padding: 100px 80px;
+    margin-left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.about-section h2 {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.about-section p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #444;
+    max-width: 900px;
+    margin-bottom: 50px;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 900px;
+}
+
+.skills-grid h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+.skills-grid ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skills-grid li {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* --- Project Detail Layout --- */
+.project-detail {
+    padding: 120px 80px;
+    max-width: 1100px;
+}
+
+.detail-header h1 {
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: none; /* Matches your light project title style */
+}
+
+.detail-meta {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 60px;
+}
+
+/* Target both Images AND Videos */
+.detail-image {
+    width: 100% !important;
+    max-width: 750x !important; /* Constrains the width to make them "smaller" */
+    margin: 0 auto 80px auto !important; /* Centers and adds vertical spacing */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-image img, 
+.detail-image video {
+    width: 100% !important;
+    max-width: 100% !important; /* Explicitly constrain the video element itself */
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important; 
+    vertical-align: bottom !important;
+    background-color: #ffffff !important; 
+    border: none !important;
+    outline: none !important;
+}
+
+
+.caption {
+    font-size: 10px;
+    color: #bbb;
+    margin-top: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-description-small {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #444;
+    margin-top: 15px; /* Space between caption and description */
+    text-align: left;
+    width: 100%;
+    max-width: 750px; /* Matches your video width */
+}
+
+/* The 2-Column Text Layout */
+.detail-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Text on left, specs on right */
+    gap: 100px;
+    margin-bottom: 100px;
+}
+
+.description-text h3, .technical-specs h3 {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #000; /* Sidebar style headings */
+    font-weight: 600;
+    margin-bottom: 25px;
+    letter-spacing: 1.5px;
+}
+
+.description-text p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.technical-specs ul {
+    list-style: none;
+    padding: 0;
+    font-size: 13px;
+    line-height: 2.2;
+    color: #555;
+}
+
+
+/* --- Mobile Responsive (Unified at 1024px) --- */
+@media (max-width: 1024px) {
+    body { flex-direction: column; }
+    .sidebar { 
+        position: relative; 
+        width: 100%; 
+        height: auto; 
+        padding: 40px 25px;
+        border-right: none; 
+        border-bottom: 1px solid #f0f0f0; 
+    }
+    .main-content { margin-left: 0; width: 100%; }
+    .gallery { 
+        grid-template-columns: 1fr; 
+        padding: 60px 25px; 
+        row-gap: 60px; 
+    }
+    .project-item { grid-column: auto !important; margin-top: 0 !important; }
+    .project-meta { opacity: 1; transform: none; } /* Always show meta on mobile */
+}
