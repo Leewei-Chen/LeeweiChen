@@ -409,24 +409,121 @@ body {
 
 
 
-
 /* --- Mobile Responsive (Unified at 1024px) --- */
 @media (max-width: 1024px) {
-    body { flex-direction: column; }
+    body { 
+        flex-direction: column; 
+    }
+    
     .sidebar { 
-        position: relative; 
+        position: fixed; /* Keep it at the top while scrolling */
         width: 100%; 
         height: auto; 
-        padding: 40px 25px;
+        padding: 20px 25px;
         border-right: none; 
-        border-bottom: 1px solid #f0f0f0; 
+        border-bottom: 1px solid #f0f0f0;
+        background: #fff;
+        z-index: 1000;
+        
+        /* THE FIX: Split Name and Links */
+        display: flex;
+        flex-direction: row; 
+        justify-content: space-between; 
+        align-items: center;
+        gap: 40px; 
     }
-    .main-content { margin-left: 0; width: 100%; }
+
+    .brand {
+        display: flex;
+        flex-direction: column;
+        text-align: left; /* Ensures name and title stay left-aligned */
+        flex-shrink: 0; /* Prevents the title from being squished */
+    }
+
+    /* 1. Reduce Sidebar Brand Text Size */
+    .brand .name {
+        font-size: 13px !important; /* Decreased from 15px */
+    }
+
+    .brand .title {
+        font-size: 8px !important;  /* Decreased from 11px */
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        margin-top: 0 !important;
+        margin-left: auto; /* This is the key to pushing them to the far right */
+        padding-top: 5px; /* Adjust this to vertically center links with the name */
+    }
+
+    /* 4. Reduce Project Description and Caption Size */
+    .description-text p {
+        font-size: 13px; /* Decreased from 15px */
+    }
+
+    .caption {
+        font-size: 8px;  /* Decreased from 10px */
+    }
+
+    /* 5. Reduce Technical Specs Size */
+    .technical-specs ul {
+        font-size: 13px; /* Decreased from 13px */
+    }
+
+    /* Adjust main content so it doesn't hide under the fixed header */
+    .main-content { 
+        margin-left: 0; 
+        width: 100%; 
+        margin-top: 110px; 
+    }
+
+
+    /* --- Gallery Fixes --- */
     .gallery { 
         grid-template-columns: 1fr; 
         padding: 60px 25px; 
         row-gap: 60px; 
     }
     .project-item { grid-column: auto !important; margin-top: 0 !important; }
-    .project-meta { opacity: 1; transform: none; } /* Always show meta on mobile */
+    .project-meta { opacity: 1; transform: none; }
+
+    /* --- Project Detail Mobile Fixes --- */
+    .project-detail {
+        padding: 60px 25px; /* Reduced padding for smaller screens */
+    }
+
+    .detail-header h1 {
+        font-size: 20px; /* Smaller title for mobile */
+    }
+
+    .detail-image {
+        max-width: 100% !important; /* Let images fill the screen width */
+        margin-bottom: 40px !important;
+    }
+
+    .detail-content {
+        grid-template-columns: 1fr; /* Stack text and specs vertically */
+        gap: 50px; /* Reduce gap between sections */
+        margin-bottom: 60px;
+    }
+
+
+
+    .about-section p {
+        font-size: 13px !important; /* Decreased from 15px */
+        line-height: 1.6;           /* Tighter line height for smaller text */
+        margin-bottom: 30px;        /* Reduces the large gap on mobile */
+    }
+
+    .about-section h2 {
+        font-size: 16px;            /* Slightly smaller heading to match */
+        margin-bottom: 20px;
+    }
+
+    /* Disable hover-based lightbox effects on touch screens */
+    .detail-image img {
+        cursor: default;
+    }
 }
