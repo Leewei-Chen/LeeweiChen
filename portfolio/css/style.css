@@ -351,6 +351,65 @@ body {
 }
 
 
+/* --- Lightbox Styles --- */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;   /* High z-index to cover the sidebar (100) */
+    left: 0;
+    top: 0;
+    width: 100vw;    /* Use viewport width to bypass container constraints */
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.98);
+    flex-direction: column;
+}
+
+.lightbox-wrapper {
+    flex-grow: 1;
+    width: 100%;
+    overflow: auto;
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+/* --- The Fixed Deep Zoom State --- */
+.lightbox-content.zoomed {
+    max-width: none;
+    max-height: none;
+    width: 3000px;      /* Large width for legible Grasshopper code */
+    cursor: zoom-out;
+    margin: 0;
+    position: absolute; /* Allows edge-to-edge panning */
+    top: 0;
+    left: 0;
+    display: block;     /* Ensures it triggers scrollbars correctly */
+}
+
+/* Cursor and Hover effects for Detail Images */
+.detail-image img {
+    cursor: zoom-in;
+    transition: opacity 0.3s ease;
+}
+
+.detail-image img:hover {
+    opacity: 0.9;
+}
+
+
+
+
 /* --- Mobile Responsive (Unified at 1024px) --- */
 @media (max-width: 1024px) {
     body { flex-direction: column; }

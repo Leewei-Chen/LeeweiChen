@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Cave-Fluid Space Study | Leewei Chen</title>
+    <link rel="stylesheet" href="portfolio/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <h1 class="name">Leewei Chen</h1>
+            <p class="title">Architectural Designer &<br>Design Technologist</p>
+        </div>
+
+        <nav class="nav-links">
+            <a href="index.html">Works</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="filters">
+            <span>Archive</span>
+            <a href="index.html?filter=architecture">• Architecture</a>
+            <a href="index.html?filter=robotics">Robotics</a>
+            <a href="index.html?filter=computational">Computational</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <section class="project-detail">
+            
+            <header class="detail-header">
+                <h1>Water Cave-Fluid Space Study</h1>
+                <div class="detail-meta">Shanghai, China | 2018</div>
+            </header>
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Watercave/Watercave-1.webp" alt="Watercave">
+                <p class="caption"></p>
+            </div>
+
+            <div class="detail-content">
+                
+                <div class="description-text">
+                    <h3>Project Overview</h3>
+                    <p>
+                    The project is an investigation of shape finding in the nature. 
+                    The proposal is to create cave-like space with continuity for a commercial bath in the downtown area of Shanghai. 
+                    Through the study of sound wave, forms are found to fulfill different functions. The rugged space combined with water,
+                    islands and ponds are the biggest features of the building, in an attempt to provide a harmonious and organic experience for customers.
+
+                </div>
+                              
+                <div class="technical-specs">
+                    <h3>Technical Data</h3>
+                    <ul>
+                        <li><strong>Status:</strong> Architecture Design</li>
+                        <li><strong>Collaborator:</strong>Individual</li>
+                        <li><strong>Tools:</strong>  Rhino, Grasshopper, Python</li>
+                        <li><strong>Typology:</strong>Commercial</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Watercave/Watercave-2.webp" alt="Watercave prototype">
+                <p class="caption"></p>
+            </div> 
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Watercave/Watercave-3.webp" alt="Watercave plan>
+                <p class="caption"></p>
+            </div>
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Watercave/Watercave-4.webp" alt="Watercave axo">
+                <p class="caption"></p>
+            </div>
+
+        </section>
+    </main>
+    
+    <div id="lightbox" class="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-wrapper">
+            <img class="lightbox-content" id="lightbox-img" onclick="toggleZoom(event)">
+        </div>
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const captionText = document.getElementById('caption');
+
+        // Open Lightbox
+        document.querySelectorAll('.detail-image img').forEach(image => {
+            image.onclick = () => {
+                lightbox.style.display = 'flex';
+                lightboxImg.src = image.src;
+                lightboxImg.classList.remove('zoomed'); 
+                captionText.innerHTML = image.parentElement.querySelector('.caption').innerHTML;
+            }
+        });
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            lightboxImg.classList.remove('zoomed');
+        }
+
+        // Toggle Deep Zoom with Panning Logic
+        function toggleZoom(e) {
+            e.stopPropagation();
+            const img = document.getElementById('lightbox-img');
+            const wrapper = img.parentElement;
+
+            if (!img.classList.contains('zoomed')) {
+                // 1. Capture click coordinates relative to current image size
+                const rect = img.getBoundingClientRect();
+                const xRatio = (e.clientX - rect.left) / rect.width;
+                const yRatio = (e.clientY - rect.top) / rect.height;
+
+                // 2. Expand image
+                img.classList.add('zoomed');
+
+                // 3. Scroll to the point after CSS layout updates (100ms delay)
+                setTimeout(() => {
+                    wrapper.scrollLeft = (img.offsetWidth * xRatio) - (wrapper.clientWidth / 2);
+                    wrapper.scrollTop = (img.offsetHeight * yRatio) - (wrapper.clientHeight / 2);
+                }, 100);
+            } else {
+                img.classList.remove('zoomed');
+                wrapper.scrollLeft = 0;
+                wrapper.scrollTop = 0;
+            }
+        }
+
+        // Close when clicking background
+        document.querySelector('.lightbox-wrapper').onclick = () => closeLightbox();
+    </script>
+</body>
+</html>

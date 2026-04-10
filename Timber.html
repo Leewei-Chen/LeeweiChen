@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timber Lamination Structure-Robotic Wood Milling | Leewei Chen</title>
+    <link rel="stylesheet" href="portfolio/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="brand">
+            <h1 class="name">Leewei Chen</h1>
+            <p class="title">Architectural Designer &<br>Design Technologist</p>
+        </div>
+
+        <nav class="nav-links">
+            <a href="index.html">Works</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="filters">
+            <span>Archive</span>
+            <a href="index.html?filter=architecture">• Architecture</a>
+            <a href="index.html?filter=robotics">Robotics</a>
+            <a href="index.html?filter=computational">Computational</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <section class="project-detail">
+            
+            <header class="detail-header">
+                <h1>Timber Lamination Structure-Robotic Wood Milling</h1>
+                <div class="detail-meta">Philadelphia, PA | 2025</div>
+            </header>
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Timber/Timber cover.webp" alt="Timber">
+                <p class="caption"></p>
+            </div>
+
+            <div class="detail-content">
+                
+                <div class="description-text">
+                    <h3>Project Overview</h3>
+                    <p>
+                       The project focuses on the creation of curved timber forms through a technique known as wood strip lamination, 
+                       where thin layers of wood are bonded together to achieve the desired curvature. 
+                       Robotic milling is employed to create precise tectonic connections between each piece, ensuring structural integrity and cohesion. 
+                       Additionally, a machine learning system is integrated to enhance milling precision, optimizing the fabrication process for greater accuracy and consistency.
+                     </p>
+                </div>
+                              
+                <div class="technical-specs">
+                    <h3>Technical Data</h3>
+                    <ul>
+                        <li><strong>Status:</strong> Robotic Fabrication</li>
+                        <li><strong>Collaborator:</strong>Huiyang Gong, Carina Joseph, Freda Odonye</li>
+                        <li><strong>Tools:</strong> Rhino, Grasshopper,Python</li>
+                        <li><strong>Typology:</strong>Robotic Fabrication</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="detail-image">
+                <video autoplay loop muted playsinline poster="portfolio/assets/Timber/Timber cover.webp">
+                    <source src="portfolio/assets/Timber/Timber Animation2.webm" type="video/webm">
+                </video>
+                <p class="caption"></p>
+            </div>   
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Timber/Timber-2.webp" alt="Timber Design">
+                <p class="caption"></p>
+            </div> 
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Timber/Timber-3.webp" alt="Timber-axo">
+                <p class="caption"></p>
+            </div>
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Timber/Timber-4.webp" alt="Timber-jig">
+                <p class="caption"></p>
+            </div>
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Timber/Timber-5.webp" alt="Timber-type">
+                <p class="caption"></p>
+            </div>
+
+            <!-- <div class="detail-image">
+                <video autoplay loop muted playsinline poster="portfolio/assets/Timber/Timber cover.webp">
+                    <source src="portfolio/assets/Timber/Timber-Glue.webm" type="video/webm">
+                </video>
+                <p class="caption"></p>
+            </div>     -->
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Timber/Timber-6.webp" alt="Timber Code">
+                <p class="caption"></p>
+            </div>
+
+            <div class="detail-image">
+                <video autoplay loop muted playsinline poster="portfolio/assets/Timber/Timber cover.webp">
+                    <source src="portfolio/assets/Timber/Timber-machinelearning.webm" type="video/webm">
+                </video>
+                <p class="caption"></p>
+            </div>   
+
+            <div class="detail-image">
+                <img src="portfolio/assets/Timber/Timber-7.webp" alt="Timber AI">
+                <p class="caption"></p>
+            </div>
+
+        </section>
+    </main>
+    
+    <div id="lightbox" class="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-wrapper">
+            <img class="lightbox-content" id="lightbox-img" onclick="toggleZoom(event)">
+        </div>
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const captionText = document.getElementById('caption');
+
+        // Open Lightbox
+        document.querySelectorAll('.detail-image img').forEach(image => {
+            image.onclick = () => {
+                lightbox.style.display = 'flex';
+                lightboxImg.src = image.src;
+                lightboxImg.classList.remove('zoomed'); 
+                captionText.innerHTML = image.parentElement.querySelector('.caption').innerHTML;
+            }
+        });
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            lightboxImg.classList.remove('zoomed');
+        }
+
+        // Toggle Deep Zoom with Panning Logic
+        function toggleZoom(e) {
+            e.stopPropagation();
+            const img = document.getElementById('lightbox-img');
+            const wrapper = img.parentElement;
+
+            if (!img.classList.contains('zoomed')) {
+                // 1. Capture click coordinates relative to current image size
+                const rect = img.getBoundingClientRect();
+                const xRatio = (e.clientX - rect.left) / rect.width;
+                const yRatio = (e.clientY - rect.top) / rect.height;
+
+                // 2. Expand image
+                img.classList.add('zoomed');
+
+                // 3. Scroll to the point after CSS layout updates (100ms delay)
+                setTimeout(() => {
+                    wrapper.scrollLeft = (img.offsetWidth * xRatio) - (wrapper.clientWidth / 2);
+                    wrapper.scrollTop = (img.offsetHeight * yRatio) - (wrapper.clientHeight / 2);
+                }, 100);
+            } else {
+                img.classList.remove('zoomed');
+                wrapper.scrollLeft = 0;
+                wrapper.scrollTop = 0;
+            }
+        }
+
+        // Close when clicking background
+        document.querySelector('.lightbox-wrapper').onclick = () => closeLightbox();
+    </script>
+</body>
+</html>
