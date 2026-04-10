@@ -493,14 +493,8 @@ body {
         pointer-events: none;
     }
 
-    /* This will override the hover state when added via JavaScript */
-    .filters.force-hide {
-        max-height: 0 !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        transition: none !important; /* Close instantly */
-    }
-    
+
+
     /* --- Ensure the delay is REMOVED when you hover back on --- */
     .nav-group:hover .filters {
         max-height: 300px;
@@ -589,4 +583,11 @@ body {
         cursor: default;
     }
 
+    /* This will override the hover state when added via JavaScript */
+    .filters.force-hide {
+        max-height: 0 !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transition: none !important; /* Close instantly */
+    }
 }
