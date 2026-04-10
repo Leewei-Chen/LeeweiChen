@@ -479,7 +479,7 @@ body {
         padding: 10px;
         z-index: 1001;
         /* opacity takes 0.3s to fade, but waits 0.4s (the delay) BEFORE starting the fade */
-        transition: max-height 0.4ms ease, opacity 0.3s ease 0.4s, margin-top 2s ease;
+        transition: max-height 0.4ms ease, opacity 0.3s ease 0.4s, margin-top 1s ease;
     
         pointer-events: none;
     }
